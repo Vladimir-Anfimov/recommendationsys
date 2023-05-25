@@ -3,6 +3,8 @@ package org.recsys.infrastucture.entities;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity(name = "rec_users")
 public class User {
@@ -21,4 +23,12 @@ public class User {
 
     @Column(nullable = false)
     private String hashedPassword;
+
+    @ManyToMany
+    @JoinTable(
+            name = "wishlists",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> wishlist;
 }
