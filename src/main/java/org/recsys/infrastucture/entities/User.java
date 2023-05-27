@@ -2,6 +2,7 @@ package org.recsys.infrastucture.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
+import org.recsys.DTOs.SignupRequestDto;
 
 import java.util.List;
 
@@ -11,12 +12,6 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-
-    @Column(nullable = false)
-    private String firstName;
-
-    @Column(nullable = false)
-    private String lastName;
 
     @Column(unique = true, nullable = false)
     private String email;
@@ -31,4 +26,15 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<Product> wishlist;
+
+    public User() {
+    }
+
+
+    public User(String email, String hashedPassword) {
+        this.email = email;
+        this.hashedPassword = hashedPassword;
+    }
+
+
 }
