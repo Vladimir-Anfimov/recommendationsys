@@ -11,10 +11,18 @@
             <h1>${product.name}</h1>
             <p>Category: ${product.category}</p>
             <p>Rating: ${product.ratings} (${product.numberOfRatings} ratings)</p>
-            <h4 class="text-danger">Discounted Price: $${product.discountPrice}</h4>
-            <del>Original Price: $${product.actualPrice}</del>
+            <h4 class="text-danger">Discounted Price: ${product.discountPrice}</h4>
+            <del>Original Price: ${product.actualPrice}</del>
             <br>
-            <button class="btn btn-lg btn-primary mt-2">Add to Wishlist</button>
+            <#if product.isInWishlist == 0>
+              <form action="/wishlist/add/${product.id?c}" method="post">
+                  <input type="submit" data-inline="true" value="Add to Wishlist" class="btn btn-primary" style = "width : 25%">
+              </form>
+              <#else>
+              <form action="/wishlist/add/${product.id?c}" method="post">
+                  <input disabled type="submit" data-inline="true" value="Add to Wishlist" class="btn btn-primary" style = "width : 25%">
+               </form>
+            </#if>
         </div>
     </div>
 </div>

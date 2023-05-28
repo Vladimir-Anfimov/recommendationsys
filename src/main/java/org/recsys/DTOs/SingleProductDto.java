@@ -2,7 +2,10 @@ package org.recsys.DTOs;
 
 
 import lombok.Data;
+import org.recsys.exceptions.SessionCookieException;
 import org.recsys.infrastucture.entities.Product;
+import org.recsys.infrastucture.entities.User;
+import org.recsys.services.UserService;
 
 @Data
 public class SingleProductDto {
@@ -23,6 +26,8 @@ public class SingleProductDto {
 
     private String category;
 
+    private int isInWishlist;
+
     public SingleProductDto(Product product)
     {
         this.id = product.getId();
@@ -34,5 +39,6 @@ public class SingleProductDto {
         this.discountPrice = product.getDiscountPrice();
         this.actualPrice = product.getActualPrice();
         this.category = product.getCategory().getName();
+        this.isInWishlist = 0;
     }
 }
