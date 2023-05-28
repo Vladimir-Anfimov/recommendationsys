@@ -2,8 +2,10 @@ package org.recsys.controllers;
 
 import org.recsys.DTOs.SingleProductDto;
 import org.recsys.exceptions.SessionCookieException;
+import org.recsys.infrastucture.entities.Category;
 import org.recsys.infrastucture.entities.Product;
 import org.recsys.infrastucture.entities.User;
+import org.recsys.repositories.CategoryRepository;
 import org.recsys.repositories.ProductRepository;
 import org.recsys.services.ProductService;
 import org.recsys.services.UserService;
@@ -27,11 +29,17 @@ public class ExplorerController {
     @Autowired
     UserService userService;
 
+    @Autowired
+    CategoryRepository categoryRepository;
+
     @GetMapping("/explorer")
-    public String explorer(Model model)
+    public String explorer(@CookieValue(value = "token", defaultValue = "NONE") String cookieValue, Model model)
     {
 
-        List<Product> recommendedProducts = productRepository.getRecommendedProducts(5);
+        List<SingleProductDto> recommendedProducts = productService.getRecommendedProducts(cookieValue).stream().map(SingleProductDto::new).toList();
+        List<Category> categories = categoryRepository.findAll();
+
+        model.addAttribute("categories", categories);
         model.addAttribute("recommendedProducts", recommendedProducts);
 
         return "explorer";
@@ -42,14 +50,8 @@ public class ExplorerController {
                                 Model model,
                                 @PathVariable Integer id)
     {
-//        try {
-            // TO DO: add visualization of the product
-//            User user = userService.getUserByCookieSession(cookieValue);
-//            return "redirect:/explorer";
-//        } catch (SessionCookieException exception) {
-//            return "signup";
-//        }
-        Product product = productService.getProductById(id);
+        Product product = productService.getProductById(id, cookieValue);
+
         if(product == null)
         {
             return "redirect:/explorer/products";
@@ -57,6 +59,7 @@ public class ExplorerController {
 
         SingleProductDto singleProductDto = new SingleProductDto(product);
         model.addAttribute("product", singleProductDto);
+
         return "singleproduct";
     }
 }
