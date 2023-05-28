@@ -14,6 +14,6 @@ public class HomeController {
 
     @GetMapping("/welcome")
     public String welcome(Model model) {
-        return "welcome";
+        return "welcome.ftlh";
     }
 }

@@ -10,4 +10,6 @@ public interface ProductRepository extends JpaRepository<Product, Integer>
 {
     @Query(value = "select * from get_complete_recommended_products(:user_id, 50);", nativeQuery = true)
     List<Product> getRecommendedProducts(Integer user_id);
+
+    Product findProductById(Integer id);
 }

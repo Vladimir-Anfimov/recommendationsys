@@ -4,6 +4,7 @@ import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 import org.recsys.DTOs.SigninRequestDto;
 import org.recsys.DTOs.SignupRequestDto;
+import org.recsys.exceptions.SessionCookieException;
 import org.recsys.exceptions.UserSigninException;
 import org.recsys.exceptions.UserSignupException;
 import org.recsys.factories.CookieFactory;
@@ -11,6 +12,7 @@ import org.recsys.infrastucture.entities.Session;
 import org.recsys.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,12 +27,23 @@ public class UserController {
     }
 
     @GetMapping("/signin")
-    public String signin(Model model) {
-        return "signin";
+    public String signin(@CookieValue(value = "token", defaultValue = "NONE") String cookieValue, Model model) {
+        try {
+            userService.getUserByCookieSession(cookieValue);
+            return "redirect:/explorer";
+        } catch (SessionCookieException exception) {
+            return "signin";
+        }
     }
     @GetMapping("/signup")
-    public String signup(Model model) {
-        return "signup";
+    public String signup(@CookieValue(value = "token", defaultValue = "NONE") String cookieValue, Model model)
+    {
+        try {
+            userService.getUserByCookieSession(cookieValue);
+            return "redirect:/explorer";
+        } catch (SessionCookieException exception) {
+            return "signup";
+        }
     }
 
 
