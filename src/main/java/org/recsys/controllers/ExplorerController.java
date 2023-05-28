@@ -75,4 +75,9 @@ public class ExplorerController {
 
         return "singleproduct";
     }
+
+    @GetMapping("/explorer/products")
+    public String SearchProducts(Model model){
+        return "searchproducts";
+    }
 }
