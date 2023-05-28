@@ -4,13 +4,13 @@
     <h1>Hello explorer</h1>
     <div class="container">
 
-    <form action="/signin" method="post">
+    <form action="" method="post">
         <div class="searchbar">
-            <input type="text">
-            <button type="submit" class="btn btn-primary">Search</button>
+             <label for="prod_name">Name</label>
+            <input type="text" name="prod_name">
         </div>
         <div class="filters">
-            <select class="form-select" aria-label="filters">
+            <select aria-label="filters">
               <option selected>Category</option>
               <option value="1">One</option>
               <option value="2">Two</option>
@@ -32,13 +32,22 @@
         </div>
     </form>
 
-    <h1>Recommended products</h1>
-    <div class="recommended-products">
-    <ul>
-        <#list recommendedProducts as product>
-            <li>${product.name}</li>
-        </#list>
-    </ul>
+    <h2>Recommended products</h2>
+
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+    <#list recommendedProducts as product>
+      <div class="col">
+        <div class="card h-100 shadow">
+          <img src=${product.image} style = "height : 300px" class="card-img-top" alt="...">
+          <div class="card-body">
+            <h5 class="card-title"><a href="explorer/product/${product.id}">${product.name}</a></h5>
+            <p class="card-text">Actual Price : ${product.actualPrice}</p>
+            <p class="card-text">Discount Price : ${product.discountPrice}</p>
+            <p class="card-text">Rating : ${product.ratings} (${product.numberOfRatings} ratings)</p>
+          </div>
+        </div>
+      </div>
+    </#list>
     </div>
 </div>
 <#include "final.ftlh">
