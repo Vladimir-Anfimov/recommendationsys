@@ -21,13 +21,22 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
-        Stream<Cookie> cookiesStream = Arrays.stream(request.getCookies());
-        String sessionCookie = cookiesStream.filter(cookie -> cookie.getName().equals(SESSION_COOKIE_NAME))
-                .map(Cookie::getValue)
-                .findFirst()
-                .orElse(null);
+        try
+        {
+            Stream<Cookie> cookiesStream = Arrays.stream(request.getCookies());
+            String sessionCookie = cookiesStream.filter(cookie -> cookie.getName().equals(SESSION_COOKIE_NAME))
+                    .map(Cookie::getValue)
+                    .findFirst()
+                    .orElse(null);
 
-        if(sessionCookie == null || !sessionRepository.existsByToken(sessionCookie)) {
+            if (sessionCookie == null || !sessionRepository.existsByToken(sessionCookie)) {
+                response.sendRedirect("/signin");
+                return false;
+            }
+        }
+        catch (Exception e)
+        {
+            System.out.println(e.getMessage());
             response.sendRedirect("/signin");
             return false;
         }
