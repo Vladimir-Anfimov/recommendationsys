@@ -2,18 +2,30 @@
 
 <#include "navbar.ftlh">
 
-<h1>Products query</h1>
-<h2 id="querystring"></h2>
+<div class="container">
 
-<script>
-    var params = new URLSearchParams(window.location.search);
-    var obj = {};
-    for (var key of params.keys()) {
-        obj[key] = params.get(key);
-    }
+    <div style="display: flex; justify-content: center;" class="m-5">
+        <h2 class="display-1">Products</h2>
+    </div>
 
-    document.getElementById("querystring").textContent = JSON.stringify(obj, null, 2);
+    <div class="row row-cols-1 row-cols-md-5 g-4">
+        <#list products as product>
+            <div class="col">
+                <div class="card h-100 shadow text-center">
+                    <img src="${product.image}" style="height: 300px;" class="card-img-top" >
+                    <div class="card-body">
+                        <h6 class="card-title">${product.name}</h6>
+                        <p class="card-text">Actual Price : ${product.actualPrice}</p>
+                        <p class="card-text">Discount Price : ${product.discountPrice}</p>
+                        <p class="card-text">Rating : ${product.ratings} (${product.numberOfRatings} ratings)</p>
+                        <p class="card-text">Category : ${product.category}</p>
+                        <a href="/explorer/products/${product.id?c}" class="btn btn-primary">Details</a>
+                    </div>
+                </div>
+            </div>
+        </#list>
+    </div>
 
-</script>
+</div>
 
 <#include "final.ftlh">

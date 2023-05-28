@@ -15,6 +15,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.List;
 
@@ -77,7 +78,21 @@ public class ExplorerController {
     }
 
     @GetMapping("/explorer/products")
-    public String SearchProducts(Model model){
+    public String SearchProducts(
+            @RequestParam("productName") String productName,
+            @RequestParam("category") String category,
+            @RequestParam("minPrice") Double minPrice,
+            @RequestParam("maxPrice") Double maxPrice,
+            @RequestParam("minRating") Double minRating,
+            @RequestParam("maxRating") Double maxRating,
+            Model model
+    ){
+        List<Product> products = productService.getSearchedProducts(productName, category, minPrice, maxPrice, minRating, maxRating);
+
+        List<SingleProductDto> singleProductDtos = products.stream().map(SingleProductDto::new).toList();
+
+        model.addAttribute("products", singleProductDtos);
+
         return "searchproducts";
     }
 }

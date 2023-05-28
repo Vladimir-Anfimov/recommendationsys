@@ -8,7 +8,8 @@
     <style>
         body {
             background-image: linear-gradient(to right, #b6fbff, #83a4d4);
-            background-repeat: no-repeat;
+            background-repeat: repeat;
+            height: 100vh;
             background-size: cover;
         }
     </style>

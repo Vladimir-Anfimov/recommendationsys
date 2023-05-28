@@ -2,12 +2,13 @@ package org.recsys.repositories;
 
 import org.recsys.infrastucture.entities.Product;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.jpa.repository.query.Procedure;
 
 import java.util.List;
 
-public interface ProductRepository extends JpaRepository<Product, Integer>
+public interface ProductRepository extends JpaRepository<Product, Integer>, JpaSpecificationExecutor<Product>
 {
     @Query(value = "select * from get_complete_recommended_products(:user_id, 50);", nativeQuery = true)
     List<Product> getRecommendedProducts(Integer user_id);

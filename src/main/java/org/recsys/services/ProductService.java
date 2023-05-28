@@ -6,6 +6,8 @@ import org.recsys.exceptions.SessionCookieException;
 import org.recsys.infrastucture.entities.Product;
 import org.recsys.infrastucture.entities.User;
 import org.recsys.repositories.ProductRepository;
+import org.recsys.repositories.ProductSpecifications;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -54,5 +56,18 @@ public class ProductService
         {
             return List.of();
         }
+    }
+
+    public List<Product> getSearchedProducts(String productName, String category, Double minPrice, Double maxPrice, Double minRating, Double maxRating)
+    {
+        Specification<Product> specification = ProductSpecifications.searchProducts(productName, category, minPrice, maxPrice, minRating, maxRating);
+        List<Product> products = productRepository.findAll(specification);
+
+        if(products.size() > 100)
+        {
+            return products.subList(0, 100);
+        }
+
+        return products;
     }
 }

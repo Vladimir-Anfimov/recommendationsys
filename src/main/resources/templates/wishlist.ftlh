@@ -1,13 +1,15 @@
 <#include "beginning.ftlh">
 <#include "navbar.ftlh">
 
-    <h1>Wishlist</h1>
+<div style="display: flex; justify-content: center;" class="m-5">
+    <h2 class="display-1">Wishlist</h2>
+</div>
 
-<div class="container">
-    <div class="row row-cols-1 row-cols-md-1 g-4">
+<div class="container-fluid">
+    <div class="row row-cols-5">
         <#list wishlist as product>
           <div class="col">
-            <div class="card w-50 h-100 shadow text-center">
+            <div class="card h-100 shadow text-center">
               <img src="${product.image}" style="height: 300px;" class="card-img-top" >
               <div class="card-body">
                 <h6 class="card-title">${product.name}</h6>
