@@ -58,6 +58,19 @@ public class ExplorerController {
         }
 
         SingleProductDto singleProductDto = new SingleProductDto(product);
+
+        try {
+            User user = userService.getUserByCookieSession(cookieValue);
+
+            if (user.getWishlist().contains(product))
+            {
+                singleProductDto.setIsInWishlist(1);
+            }
+
+        } catch (SessionCookieException exception) {
+            return "redirect:/explorer/products";
+        }
+
         model.addAttribute("product", singleProductDto);
 
         return "singleproduct";

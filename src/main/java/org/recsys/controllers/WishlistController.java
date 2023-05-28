@@ -6,10 +6,7 @@ import org.recsys.exceptions.SessionCookieException;
 import org.recsys.services.UserService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class WishlistController {
@@ -19,14 +16,14 @@ public class WishlistController {
         this.userService = userService;
     }
 
-    @PostMapping("/wishlist/add")
+    @PostMapping("/wishlist/add/{productId}")
     public String addToWishlist(
             @CookieValue(value = "token", defaultValue = "NONE") String cookieValue,
             Model model,
-            @ModelAttribute("addToWishlistDto") AddToWishlistDto addToWishlistDto)
+            @PathVariable Integer productId)
     {
         try {
-            userService.addWishlistItem(cookieValue, addToWishlistDto.getProductId());
+            userService.addWishlistItem(cookieValue, productId);
         } catch (SessionCookieException exception) {
             return "redirect:/signin";
         }
