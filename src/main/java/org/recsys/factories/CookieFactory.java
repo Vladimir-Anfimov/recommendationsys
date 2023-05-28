@@ -14,4 +14,5 @@ public class CookieFactory {
         cookie.setSecure(SECURE);
         return cookie;
     }
+
 }

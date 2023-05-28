@@ -27,6 +27,9 @@ public class Product {
 
     private Double actualPrice;
 
+    @Column(name = "popularity_score")
+    private Integer popularityScore;
+
     @ManyToOne
     private Category category;
 
