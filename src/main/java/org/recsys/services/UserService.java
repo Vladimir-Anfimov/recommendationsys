@@ -92,4 +92,6 @@ public class UserService {
         return user.getWishlist().stream().map(ProductWishlistItemDto::new).toList();
     }
 
+    // TO DO: add visualization of the product
+
 }

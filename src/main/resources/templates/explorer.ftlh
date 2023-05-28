@@ -1,5 +1,7 @@
 <#include "beginning.ftlh">
-    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"  media="screen">
+<#--    <link rel="stylesheet" href="https://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css"  media="screen">-->
+<#include "navbar.ftlh">
+
 
     <h1>Hello explorer</h1>
     <div class="container">
@@ -38,9 +40,9 @@
     <#list recommendedProducts as product>
       <div class="col">
         <div class="card h-100 shadow">
-          <img src=${product.image} style = "height : 300px" class="card-img-top" alt="...">
+          <img src="${product.image}" style="height: 300px;" class="card-img-top" >
           <div class="card-body">
-            <h5 class="card-title"><a href="explorer/product/${product.id}">${product.name}</a></h5>
+            <h5 class="card-title"><a href="/explorer/products/${product.id?c}">${product.name}</a></h5>
             <p class="card-text">Actual Price : ${product.actualPrice}</p>
             <p class="card-text">Discount Price : ${product.discountPrice}</p>
             <p class="card-text">Rating : ${product.ratings} (${product.numberOfRatings} ratings)</p>

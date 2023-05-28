@@ -5,7 +5,7 @@
 <div class="container-fluid bg-white p-5 mt-5 rounded shadow-lg" style="width: 80%; display: flex; justify-content: center">
     <div class="row">
         <div class="col-6" style="display: flex; justify-content: center; align-items: center;">
-            <img src="${product.image}" class="img-fluid" alt="${product.name}" width="100%">
+            <img src="${product.image}" class="img-fluid" alt="${product.name}" style="height: 500px;">
         </div>
         <div class="col-6">
             <h1>${product.name}</h1>

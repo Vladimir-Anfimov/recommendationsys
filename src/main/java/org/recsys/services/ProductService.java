@@ -16,7 +16,7 @@ public class ProductService
     public Product getProductById(Integer id)
     {
         Product product = productRepository.findProductById(id);
-        increaseProductScore(product);
+//        increaseProductScore(product); TO DO
         return product;
     }
 
