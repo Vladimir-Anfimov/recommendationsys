@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface ProductRepository extends JpaRepository<Product, Integer>
 {
-    @Query(value = "select * from get_recommended_products_content(:user_id, 10);", nativeQuery = true)
+    @Query(value = "select * from get_complete_recommended_products(:user_id, 50);", nativeQuery = true)
     List<Product> getRecommendedProducts(Integer user_id);
 }
