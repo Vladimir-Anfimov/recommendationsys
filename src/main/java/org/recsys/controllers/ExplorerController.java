@@ -33,6 +33,9 @@ public class ExplorerController {
     @Autowired
     CategoryRepository categoryRepository;
 
+    /**
+     * This method gets the recommended products that the user can see in the explorer page
+     */
     @GetMapping("/explorer")
     public String explorer(@CookieValue(value = "token", defaultValue = "NONE") String cookieValue, Model model)
     {
@@ -46,6 +49,9 @@ public class ExplorerController {
         return "explorer";
     }
 
+    /**
+     * This method gets details about one product used for the product page
+     */
     @GetMapping("/explorer/products/{id}")
     public String singleProduct(@CookieValue(value = "token", defaultValue = "NONE") String cookieValue,
                                 Model model,

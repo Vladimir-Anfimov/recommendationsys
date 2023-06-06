@@ -8,6 +8,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+/**
+ * Controller for wishlist endpoint
+ */
 @Controller
 public class WishlistController {
     private final UserService userService;
@@ -16,6 +19,10 @@ public class WishlistController {
         this.userService = userService;
     }
 
+    /**
+     * Post method to add a product to a wishlist
+     * @param cookieValue the cookie used for extracting the userId
+     */
     @PostMapping("/wishlist/add/{productId}")
     public String addToWishlist(
             @CookieValue(value = "token", defaultValue = "NONE") String cookieValue,
@@ -30,6 +37,9 @@ public class WishlistController {
         return "redirect:/wishlist";
     }
 
+    /**
+     * Get method for getting all the products from a wishlist
+     */
     @GetMapping("/wishlist")
     public String wishlist(
             @CookieValue(value = "token", defaultValue = "NONE") String cookieValue,
