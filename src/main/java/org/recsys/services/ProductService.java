@@ -20,6 +20,10 @@ public class ProductService
     private final UserService userService;
     private final ProductRepository productRepository;
 
+    /**
+     * @return the product that has the given id and increases the
+     * user-product score and the product score
+     */
     public Product getProductById(Integer id, String cookieValue)
     {
         try {
@@ -38,12 +42,18 @@ public class ProductService
         }
     }
 
+    /**
+     * This method increases the product popularity
+     */
     private void increaseProductScore(Product product)
     {
         product.setPopularityScore(product.getPopularityScore() + 1);
         productRepository.save(product);
     }
 
+    /**
+     * @return the list of recommended products
+     */
     public List<Product> getRecommendedProducts(String cookieValue)
     {
         try
