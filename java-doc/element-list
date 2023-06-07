@@ -1,0 +1,11 @@
+org.recsys
+org.recsys.controllers
+org.recsys.DTOs
+org.recsys.exceptions
+org.recsys.factories
+org.recsys.infrastucture.configuration
+org.recsys.infrastucture.entities
+org.recsys.interceptors
+org.recsys.repositories
+org.recsys.services
+org.recsys.specifications
