@@ -19,8 +19,8 @@
                   <input type="submit" data-inline="true" value="Add to Wishlist" class="btn btn-primary" style = "width : 25%">
               </form>
               <#else>
-              <form action="/wishlist/add/${product.id?c}" method="post">
-                  <input disabled type="submit" data-inline="true" value="Add to Wishlist" class="btn btn-primary" style = "width : 25%">
+              <form action="/wishlist/remove/${product.id?c}" method="post">
+                  <input type="submit" data-inline="true" value="Remove" class="btn btn-primary" style = "width : 25%">
                </form>
             </#if>
         </div>

@@ -38,6 +38,24 @@ public class WishlistController {
     }
 
     /**
+     * Post method to remove a product from a wishlist
+     * @param cookieValue the cookie used for extracting the userId
+     */
+    @PostMapping("/wishlist/remove/{productId}")
+    public String removeFromWishlist(
+            @CookieValue(value = "token", defaultValue = "NONE") String cookieValue,
+            Model model,
+            @PathVariable Integer productId)
+    {
+        try {
+            userService.removeWishlistItem(cookieValue, productId);
+        } catch (SessionCookieException exception) {
+            return "redirect:/signin";
+        }
+        return "redirect:/wishlist";
+    }
+
+    /**
      * Get method for getting all the products from a wishlist
      */
     @GetMapping("/wishlist")

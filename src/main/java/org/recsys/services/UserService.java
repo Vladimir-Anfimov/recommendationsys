@@ -106,6 +106,18 @@ public class UserService {
     }
 
     /**
+     * Removes a product from the user's wishlist
+     * @param token
+     * @param productId
+     * @throws SessionCookieException
+     */
+    public void removeWishlistItem(String token, Integer productId) throws SessionCookieException {
+        User user = getUserByCookieSession(token);
+        user.getWishlist().remove(productRepository.findById(productId).get());
+        userRepository.save(user);
+    }
+
+    /**
      * Returns the user's wishlist
      * @param token
      * @return
