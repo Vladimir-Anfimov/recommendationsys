@@ -1,4 +1,4 @@
-package org.recsys.repositories;
+package org.recsys.specifications;
 
 import jakarta.persistence.criteria.Predicate;
 import org.recsys.infrastucture.entities.Product;
@@ -9,6 +9,16 @@ import java.util.List;
 
 public class ProductSpecifications {
 
+    /**
+     * This method is used to search products by the above parameters
+     * @param productName
+     * @param category
+     * @param minPrice
+     * @param maxPrice
+     * @param minRating
+     * @param maxRating
+     * @return
+     */
     public static Specification<Product> searchProducts(String productName, String category, Double minPrice,
                                                         Double maxPrice, Double minRating, Double maxRating) {
         return (root, query, cb) -> {
@@ -17,9 +27,9 @@ public class ProductSpecifications {
             if (productName != null && !productName.isEmpty()) {
                 predicates.add(cb.like(cb.lower(root.get("name")), "%" + productName.toLowerCase() + "%"));
             }
-//            if (category != null && !category.isEmpty()) {
-//                predicates.add(cb.equal(root.get("category").get("id"), Integer.valueOf(category)));
-//            }
+            if (category != null && !category.isEmpty()) {
+                predicates.add(cb.equal(root.get("category").get("id"), Integer.valueOf(category)));
+            }
             if (minPrice != null) {
                 predicates.add(cb.greaterThanOrEqualTo(root.get("actualPrice"), minPrice));
             }

@@ -30,6 +30,12 @@ public class UserService {
         this.productRepository = productRepository;
     }
 
+    /**
+     * Signs up the user and returns a session
+     * @param signupRequestDto
+     * @return
+     * @throws UserSignupException
+     */
     public Session signup(SignupRequestDto signupRequestDto) throws UserSignupException {
         if(!signupRequestDto.getPassword().equals(signupRequestDto.getConfirmPassword()))
             throw new UserSignupException("Passwords do not match.");
@@ -49,6 +55,12 @@ public class UserService {
         return session;
     }
 
+    /**
+     * Signs in the user and returns a session
+     * @param signinRequestDto
+     * @return
+     * @throws UserSigninException
+     */
     public Session signin(SigninRequestDto signinRequestDto) throws UserSigninException {
         User user = userRepository.findByEmail(signinRequestDto.getEmail());
         if(user == null)
@@ -81,17 +93,28 @@ public class UserService {
         return user;
     }
 
+    /**
+     * Adds a product to the user's wishlist
+     * @param token
+     * @param productId
+     * @throws SessionCookieException
+     */
     public void addWishlistItem(String token, Integer productId) throws SessionCookieException {
         User user = getUserByCookieSession(token);
         user.getWishlist().add(productRepository.findById(productId).get());
         userRepository.save(user);
     }
 
+    /**
+     * Returns the user's wishlist
+     * @param token
+     * @return
+     * @throws SessionCookieException
+     */
     public List<ProductWishlistItemDto> getWishlist(String token) throws SessionCookieException {
         User user = getUserByCookieSession(token);
         return user.getWishlist().stream().map(ProductWishlistItemDto::new).toList();
     }
 
-    // TO DO: add visualization of the product
 
 }
