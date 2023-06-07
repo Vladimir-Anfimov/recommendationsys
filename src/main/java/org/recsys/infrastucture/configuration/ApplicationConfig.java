@@ -14,6 +14,10 @@ public class ApplicationConfig implements WebMvcConfigurer {
         this.sessionRepository = sessionRepository;
     }
 
+    /**
+     * Adds the AuthorizationInterceptor to the interceptor registry.
+     * @param registry
+     */
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new AuthorizationInterceptor(sessionRepository))

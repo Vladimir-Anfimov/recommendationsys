@@ -6,7 +6,10 @@ import org.recsys.exceptions.SessionCookieException;
 import org.recsys.infrastucture.entities.Product;
 import org.recsys.infrastucture.entities.User;
 import org.recsys.repositories.ProductRepository;
-import org.recsys.repositories.ProductSpecifications;
+import org.recsys.specifications.ProductSpecifications;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -68,16 +71,15 @@ public class ProductService
         }
     }
 
+    /**
+     * @return the list of products that match the given criteria
+     */
     public List<Product> getSearchedProducts(String productName, String category, Double minPrice, Double maxPrice, Double minRating, Double maxRating)
     {
+        Pageable pageable = PageRequest.of(0, 100);
         Specification<Product> specification = ProductSpecifications.searchProducts(productName, category, minPrice, maxPrice, minRating, maxRating);
-        List<Product> products = productRepository.findAll(specification);
+        Page<Product> products = productRepository.findAll(specification, pageable);
 
-        if(products.size() > 100)
-        {
-            return products.subList(0, 100);
-        }
-
-        return products;
+        return products.getContent();
     }
 }

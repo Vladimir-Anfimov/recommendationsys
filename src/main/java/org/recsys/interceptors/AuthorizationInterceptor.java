@@ -19,6 +19,15 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         this.sessionRepository = sessionRepository;
     }
 
+    /**
+     * Checks if the user is authorized to access the requested resource
+     * by extracting the session cookie from the request and checking if it exists in the database.
+     * @param request
+     * @param response
+     * @param handler
+     * @return
+     * @throws Exception
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         try
